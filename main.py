@@ -33,7 +33,7 @@ while games:
     else:
       return guess == 'b'
   is_correct=game(guess,count,count1)
-  # while games==True:
+ 
   if is_correct:
     score+=1
     print(f'you won, score:{score}')
