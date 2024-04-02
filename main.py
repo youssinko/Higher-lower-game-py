@@ -2,22 +2,41 @@ from game_data import data
 import random
 from art import logo, vs
 score=0
+games=True
 new= random.choice(data)
-new1=random.choice(data)
-print(f"{logo}\nChoice A: {new['name']} {new['description']} from {new['country']}\n {vs} \n Choice B: {new1['name']} {new1['description']} from {new1['country']}")
-output=input("A or B ?\n").lower()
-if output == "a":
-   a= new
-else:
-   b= new1
-print(new['follower_count'])
-print(new1['follower_count'])
+while games:
+  new1=new
+  new1=random.choice(data)
+  #regenerate new random if A and B are the same.
+  if new == new1:
+    new1=random.choice(data)
+  count=new['follower_count']
+  print(count)
+  count1=new1['follower_count']
+  print(count1)
+  
 
-if new['follower_count'] > new1['follower_count'] and output =="a":
-  score+=1
-  print(f"you won! {score}")
-elif new['follower_count'] < new1['follower_count'] and output =="b":
-  score+=1
-  print(f"you won! {score}")
-else:
-  print(f"you lost! {score}")
+
+  def definition(account):
+    name=account['name']
+    description=account['description']
+    country=account['country']
+    return(f'{name} {description} from {country}')
+    
+  print(f'{logo} {definition(new)} {vs} {definition(new1)}')
+  
+  guess=input("A or B ?\n").lower()
+  
+  def game(guess,count,count1):
+    if count > count1:
+      return guess == 'a'
+    else:
+      return guess == 'b'
+  is_correct=game(guess,count,count1)
+  # while games==True:
+  if is_correct:
+    score+=1
+    print(f'you won, score:{score}')
+  else:
+    games=False
+    print(f'you lost, score:{score}')
